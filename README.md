@@ -1,5 +1,5 @@
 # Vue Chat Socket.io
-Ejemplo de chat cliente servidor. Como cliente usaremos Vue.js, el servidor en Node.js. Usaremos la librería Socket.io. Todo ello con TypeScript
+Ejemplo de chat cliente servidor. Como cliente usaremos Vue.js, el servidor en Node.js. Usaremos la librería Socket.io. Todo ello con TypeScript.
 
 [![Vue Ready](https://img.shields.io/badge/Vue.js-%20Ready-%2342b983)](https://es.vuejs.org/)
 [![NodeJS](https://img.shields.io/badge/NodeJS-Ready-83BA63)](https://nodejs.org/es/)
