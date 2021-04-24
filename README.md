@@ -10,6 +10,8 @@ Ejemplo de mensajería privada cliente servidor. Como cliente usaremos Vue.js, e
 
 - [Vue Chat Socket.io](#vue-chat-socketio)
   - [Sobre el proyecto](#sobre-el-proyecto)
+    - [Store](#store)
+      - [Sesiones](#sesiones)
   - [Servidor](#servidor)
     - [Project setup](#project-setup)
     - [Compiles and hot-reloads for development](#compiles-and-hot-reloads-for-development)
@@ -29,6 +31,12 @@ Ejemplo de mensajería privada cliente servidor. Como cliente usaremos Vue.js, e
 ## Sobre el proyecto
 
 El proyecto consiste en crar sistema de mensajería privada en tiempo real creando un cliente en Vue.js y un servidor en Node.js. Ambos trabajarán con la librería Socket.io. 
+
+### Store
+Se ha implementado un Store tanto en cliente como en servidor.
+
+#### Sesiones
+La sesiones se guardan en el servidor en base a un identificador único. De esta manera si un usuario recarga la página se volvería a conectar seimpre que su sesión esté activa. En el cliente el identificador de la sesión se guarda en el almacenamiento local del navegador.
 
 ## Servidor
 En la carpeta servidor, tienes el servidor creado. Para ello se ha usando Node.js con TypeScript.
