@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Header/>
     <select-username
       v-if="!usernameAlreadySelected"
       @input="onUsernameSelection"
@@ -15,6 +16,7 @@ import socket from './services/socket';
 import SelectUsername from './components/SelectUsername.vue';
 import Chat from './components/Chat.vue';
 import Footer from './components/Footer.vue';
+import Header from './components/Header.vue';
 
 export default Vue.extend({
   name: 'App',
@@ -24,6 +26,7 @@ export default Vue.extend({
     Chat,
     SelectUsername,
     Footer,
+    Header,
   },
 
   // Mi modelo de datos
@@ -60,10 +63,3 @@ export default Vue.extend({
   },
 });
 </script>
-
-<style>
-body {
-  margin: 0;
-}
-
-</style>

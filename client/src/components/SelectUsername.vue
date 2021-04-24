@@ -1,11 +1,5 @@
 <template>
   <div>
-    <header class="has-background-primary py-2 mb-4 has-text-link-light">
-      <p class="has-text-centered is-size-1 has-text-weight-semibold">
-        📨 Vue.js Socket.io Web Chat
-        <img src="@/assets/logo.png" width="40" />
-      </p>
-    </header>
     <form @submit.prevent="onSubmit">
       <div class="select-username">
         <p class="has-text-centered is-size-1">¡Conéctate!</p>

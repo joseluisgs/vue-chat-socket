@@ -38,13 +38,12 @@ $colors: map-merge($colors, $addColors);
   font-family: $family-sans-serif
 }
 
-
 .footer {
   padding: 0.8rem 0.8rem 0.6rem;
   position: fixed;
   bottom: 0;
   width: 100%;
   box-shadow: -0px -2px 3px rgb(190, 190, 190);
-  transition: background-color $animate_theme;
   // Parrafo del footer
 }
+

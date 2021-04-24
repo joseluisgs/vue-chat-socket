@@ -47,7 +47,7 @@ export default Vue.extend({
 
 <style scoped>
 .selected {
-  background-color: #1164a3;
+  background-color: #804cfc;
 }
 
 .user {

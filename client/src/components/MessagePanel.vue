@@ -3,7 +3,7 @@
     <div class="header">
       <status-icon :connected="user.connected" />👤 {{ user.username }}
     </div>
-
+    <div class="inbox">
     <ul class="messages">
       <li
         v-for="(message, index) in user.messages"
@@ -18,10 +18,9 @@
         <span class="time_date">{{getTime}}</span>
       </li>
     </ul>
-
+  </div>
     <div class="columns">
       <div class="column">
-        <div class="fallback"></div>
         <form @submit.prevent="onSubmit" class="message_form m-3">
           <div class="columns"></div>
           <div class="field is-horizontal is-expanded">
@@ -125,8 +124,7 @@ export default Vue.extend({
 .in-message {
   font-size:0.90rem;
   margin: 1rem;
-  color: black;
-  background-color: rgb(204, 239, 255);
+  background-color: #ccefff;
   width: 50%;
   padding: 1rem;
   box-shadow: -0px -2px 3px rgb(190, 190, 190);
@@ -135,7 +133,6 @@ export default Vue.extend({
 .out-message {
   font-size:0.90rem;
   margin: 1rem;
-  color: black;
   background-color: rgb(128, 245, 206);
   width: 50%;
   padding: 1rem;
@@ -159,5 +156,10 @@ export default Vue.extend({
 .time_date {
   font-size:0.75rem;
   color: grey
+}
+
+.inbox {
+  height:62vh;
+  overflow: auto;
 }
 </style>
