@@ -10,7 +10,7 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 2020,
-    tsconfigRootDir: __dirname,
+    // tsconfigRootDir: __dirname,
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

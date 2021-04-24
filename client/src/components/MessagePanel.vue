@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header">
-      <status-icon :connected="user.connected" />{{ user.username }}
+      <status-icon :connected="user.connected" />👤 {{ user.username }}
     </div>
 
     <ul class="messages">
@@ -14,6 +14,8 @@
           {{ message.fromSelf ? "(Tú)" : user.username }}
         </div>
         {{ message.content }}
+        <br>
+        <span class="time_date">{{getTime}}</span>
       </li>
     </ul>
 
@@ -96,6 +98,10 @@ export default Vue.extend({
     isValid(): boolean {
       return this.input.length > 0;
     },
+    getTime(): string {
+      const time = new Date();
+      return time.toLocaleString('es-ES');
+    },
   },
 });
 </script>
@@ -149,5 +155,9 @@ export default Vue.extend({
   height: 8vh;
   box-shadow: -0px -2px 3px rgb(190, 190, 190);
   border-radius: 8px;
+}
+.time_date {
+  font-size:0.75rem;
+  color: grey
 }
 </style>
