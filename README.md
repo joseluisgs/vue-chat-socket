@@ -23,6 +23,7 @@ Ejemplo de mensajería privada cliente servidor. Como cliente usaremos Vue.js, e
     - [Lints and fixes files](#lints-and-fixes-files-1)
   - [Autor](#autor)
   - [Licencia](#licencia)
+  - [Agradecimientos](#agradecimientos)
 
 ![imagen](image.jpeg)
 ## Sobre el proyecto
@@ -93,3 +94,6 @@ Codificado con :sparkling_heart: por [José Luis González Sánchez](https://twi
 
 Este proyecto esta licenciado bajo licencia **MIT**, si desea saber más, visite el fichero
 [LICENSE](./LICENSE) para su uso docente y educativo.
+
+## Agradecimientos
+Proyecto basado en parte de los ejemplos de [Socket.io](https://socket.io/get-started/private-messaging-part-1/)
