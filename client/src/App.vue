@@ -5,6 +5,7 @@
       @input="onUsernameSelection"
     />
     <chat v-else />
+    <Footer/>
   </div>
 </template>
 
@@ -13,6 +14,7 @@ import Vue from 'vue';
 import socket from './services/socket';
 import SelectUsername from './components/SelectUsername.vue';
 import Chat from './components/Chat.vue';
+import Footer from './components/Footer.vue';
 
 export default Vue.extend({
   name: 'App',
@@ -21,6 +23,7 @@ export default Vue.extend({
   components: {
     Chat,
     SelectUsername,
+    Footer,
   },
 
   // Mi modelo de datos
@@ -63,13 +66,4 @@ body {
   margin: 0;
 }
 
-@font-face {
-  font-family: Lato;
-  src: url("/fonts/Lato-Regular.ttf");
-}
-
-#app {
-  font-family: Lato, Arial, sans-serif;
-  font-size: 14px;
-}
 </style>

@@ -1,8 +1,32 @@
 <template>
-  <div class="select-username">
+  <div>
+    <header class="has-background-primary py-2 mb-4 has-text-link-light">
+      <p class="has-text-centered is-size-1 has-text-weight-semibold">
+        📨 Vue.js Socket.io Web Chat
+        <img src="@/assets/logo.png" width="40" />
+      </p>
+    </header>
     <form @submit.prevent="onSubmit">
-      <input v-model="username" placeholder="Tu nombre de usuario..." />
-      <button :disabled="!isValid">Enviar</button>
+      <div class="select-username">
+        <p class="has-text-centered is-size-1">¡Conéctate!</p>
+        <div class="field">
+          <label class="label">Username</label>
+          <div class="control">
+            <input
+              v-model="username"
+              class="input"
+              type="text"
+              placeholder="Tu nombre de usuario..."
+            />
+          </div>
+        </div>
+
+        <div class="field is-grouped">
+          <div class="control">
+            <button :disabled="!isValid" class="button is-link">Enviar</button>
+          </div>
+        </div>
+      </div>
     </form>
   </div>
 </template>
@@ -38,7 +62,7 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped>
+<style lang="scss">
 .select-username {
   width: 300px;
   margin: 200px auto 0;
