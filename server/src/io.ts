@@ -57,6 +57,7 @@ export default (servicio: http.Server) => {
         content: data.content,
         from: socket.id,
       });
+      console.log(chalk.magenta(`# Mensaje de ${socket.username} ${new Date().toLocaleString()}`));
     });
 
     // Si nos llega el evento de desconectar
