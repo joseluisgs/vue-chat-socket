@@ -8,7 +8,8 @@ import * as socketio from 'socket.io';
 import http from 'http';
 import chalk from 'chalk';
 import crypto from 'crypto';
-import InMemorySessionStore from './Store/InMemorySessionStore';
+import InMemorySessionStore from './store/InMemorySessionStore';
+import ISession from './interfaces/ISession';
 
 // Para obtener ID aleatorios
 const randomId = () => crypto.randomBytes(8).toString('hex');
@@ -72,7 +73,7 @@ export default (servicio: http.Server) => {
 
     // Lista de usuarios desde la sesion
     // fetch existing users
-    const users: any[] = [];
+    const users: ISession[] = [];
     sessionStore.findAllSessions().forEach((session) => {
       users.push({
         userID: session.userID,
