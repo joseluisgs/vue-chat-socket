@@ -23,21 +23,7 @@ import Vue from 'vue';
 import socket from '../services/socket';
 import User from './User.vue';
 import MessagePanel from './MessagePanel.vue';
-
-// Mis interfaces para tipar
-interface IMessage {
-  content: string;
-  fromSelf: boolean;
-}
-
-interface IUser {
-  userID: string;
-  username: string;
-  messages: IMessage[];
-  hasNewMessages: boolean;
-  self: boolean;
-  connected: boolean;
-}
+import IUser from '../interfaces/IUser';
 
 export default Vue.extend({
   name: 'Chat',
@@ -46,12 +32,11 @@ export default Vue.extend({
   components: { User, MessagePanel },
 
   // Mi modelo de datos
-  data() {
-    return {
-      selectedUser: {} as IUser,
-      users: [] as IUser[],
-    };
-  },
+  data: () => ({
+    selectedUser: {} as IUser,
+    users: [] as IUser[],
+  }),
+
   // Mis métodos
   methods: {
     // Si llega un mensaje

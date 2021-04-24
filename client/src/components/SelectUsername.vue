@@ -32,11 +32,9 @@ export default Vue.extend({
   name: 'SelectUsername',
 
   // Mi modelo de datos
-  data() {
-    return {
-      username: '' as string,
-    };
-  },
+  data: () => ({
+    username: '' as string,
+  }),
 
   // Métodos computados
   computed: {

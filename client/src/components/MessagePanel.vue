@@ -1,34 +1,36 @@
 <template>
   <div>
     <div class="header">
-      <status-icon :connected="user.connected" />👤 {{ user.username }}
+      <status-icon :connected="user.connected"></status-icon>👤
+      {{ user.username }}
     </div>
     <div class="inbox">
-    <ul class="messages">
-      <li
-        v-for="(message, index) in user.messages"
-        :key="index"
-        :class="message.fromSelf ? 'out-message m-3' : 'in-message m-3'"
-      >
-        <div v-if="displaySender(message, index)" class="sender">
-          {{ message.fromSelf ? "(Tú)" : user.username }}
-        </div>
-        {{ message.content }}
-        <br>
-        <span class="time_date">{{getTime}}</span>
-      </li>
-    </ul>
-  </div>
+      <ul class="messages">
+        <li
+          v-for="(message, index) in user.messages"
+          :key="index"
+          :class="message.fromSelf ? 'out-message m-3' : 'in-message m-3'"
+        >
+          <div class="sender" v-if="displaySender(message, index)">
+            {{ message.fromSelf ? "(Tú)" : user.username }}
+          </div>
+          {{ message.content }}<br /><span class="time_date">{{
+            getTime
+          }}</span>
+        </li>
+      </ul>
+    </div>
     <div class="columns">
       <div class="column">
-        <form @submit.prevent="onSubmit" class="message_form m-3">
+        <form class="message_form m-3" @submit.prevent="onSubmit">
           <div class="columns"></div>
           <div class="field is-horizontal is-expanded">
             <div class="field-body">
               <div class="field is-expanded">
                 <p class="control">
-                  <input v-model="input"
+                  <input
                     class="input"
+                    v-model="input"
                     type="text"
                     placeholder="Nuevo mensaje"
                   />
@@ -37,8 +39,8 @@
               <div class="field is-narrow">
                 <p class="control">
                   <button
-                  :disabled="!isValid"
                     class="button is-link message_form__button"
+                    :disabled="!isValid"
                     type="submit"
                   >
                     Enviar
@@ -56,6 +58,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import StatusIcon from './StatusIcon.vue';
+import IUser from '../interfaces/IUser';
 
 export default Vue.extend({
   name: 'MessagePanel',
@@ -67,15 +70,13 @@ export default Vue.extend({
 
   // Mis propiedades
   props: {
-    user: Object,
+    user: Object as () => IUser,
   },
 
   // Mis datos
-  data() {
-    return {
-      input: '',
-    };
-  },
+  data: () => ({
+    input: '',
+  }),
 
   methods: {
     onSubmit(): void {
@@ -83,11 +84,12 @@ export default Vue.extend({
       this.input = '';
     },
 
-    displaySender(message: any, index: number): boolean {
+    displaySender(message: string, index: number | string | symbol): boolean {
+      const indice = Number(index);
       return (
         index === 0
-        || this.user.messages[index - 1].fromSelf
-          !== this.user.messages[index].fromSelf
+        || this.user.messages[indice - 1].fromSelf
+          !== this.user.messages[indice].fromSelf
       );
     },
   },
@@ -122,16 +124,16 @@ export default Vue.extend({
 }
 
 .in-message {
-  font-size:0.90rem;
+  font-size: 0.9rem;
   margin: 1rem;
   background-color: #ccefff;
   width: 50%;
   padding: 1rem;
   box-shadow: -0px -2px 3px rgb(190, 190, 190);
-  border-radius: 8px
+  border-radius: 8px;
 }
 .out-message {
-  font-size:0.90rem;
+  font-size: 0.9rem;
   margin: 1rem;
   background-color: rgb(128, 245, 206);
   width: 50%;
@@ -154,12 +156,12 @@ export default Vue.extend({
   border-radius: 8px;
 }
 .time_date {
-  font-size:0.75rem;
-  color: grey
+  font-size: 0.75rem;
+  color: grey;
 }
 
 .inbox {
-  height:62vh;
+  height: 62vh;
   overflow: auto;
 }
 </style>

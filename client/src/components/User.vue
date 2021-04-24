@@ -15,6 +15,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import StatusIcon from './StatusIcon.vue';
+import IUser from '../interfaces/IUser';
 
 export default Vue.extend({
   name: 'User',
@@ -23,7 +24,7 @@ export default Vue.extend({
 
   // Mis propiedades
   props: {
-    user: Object,
+    user: Object as () => IUser,
     selected: Boolean,
   },
 

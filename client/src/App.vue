@@ -30,11 +30,9 @@ export default Vue.extend({
   },
 
   // Mi modelo de datos
-  data() {
-    return {
-      usernameAlreadySelected: false,
-    };
-  },
+  data: () => ({
+    usernameAlreadySelected: false,
+  }),
 
   // Mis métodos
   methods: {
