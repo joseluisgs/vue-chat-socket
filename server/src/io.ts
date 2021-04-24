@@ -42,14 +42,6 @@ export default (servicio: http.Server) => {
       });
       console.log(chalk.cyan(`-> Clientes conectados ${username} conectado: ${new Date().toLocaleString()}`));
     });
-    // for (const [id, mySocket] of io.of('/').sockets) {
-    //   const { username } = mySocket as any;
-    //   users.push({
-    //     userID: id,
-    //     username,
-    //   });
-    //   console.log(chalk.cyan(`-> Clientes conectados ${username} conectado: ${new Date().toLocaleString()}`));
-    // }
     // Emitimos la lista de usuarios
     socket.emit('users', users);
 
@@ -70,7 +62,7 @@ export default (servicio: http.Server) => {
     // Si nos llega el evento de desconectar
     socket.on('disconnect', () => {
       socket.broadcast.emit('user disconnected', socket.id);
-      console.log(chalk.yellow(`<- Cliente ${socket.userId} desconectado: ${new Date().toLocaleString()}`));
+      console.log(chalk.yellow(`<- Cliente ${socket.username} desconectado: ${new Date().toLocaleString()}`));
     });
   });
 };
