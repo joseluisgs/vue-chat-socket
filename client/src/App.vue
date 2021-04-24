@@ -1,29 +1,73 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <select-username
+      v-if="!usernameAlreadySelected"
+      @input="onUsernameSelection"
+    />
+    <chat v-else />
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import Vue from "vue";
+import socket from "./services/socket";
+import SelectUsername from "./components/SelectUsername.vue";
+import Chat from "./components/Chat.vue";
 
 export default Vue.extend({
-  name: 'App',
+  name: "App",
+
+  // Mis componentes
   components: {
-    HelloWorld,
+    Chat,
+    SelectUsername,
+  },
+
+  // Mi modelo de datos
+  data: {
+    usernameAlreadySelected: false,
+  },
+
+  // Mis métodos
+  methods: {
+    // Si nos seleccionamos
+    onUsernameSelection(username: string) {
+      this.usernameAlreadySelected = true;
+      socket.auth = { username };
+      socket.connect();
+    },
+  },
+
+  // Mi ciclo de vida
+  // Al crearme
+  created() {
+    // Funciones de socket
+    socket.on("connect_error", (err: Error) => {
+      if (err.message === "invalid username") {
+        this.usernameAlreadySelected = false;
+      }
+    });
+  },
+
+  // Al destruirme
+  destroyed() {
+    socket.off("connect_error");
   },
 });
 </script>
 
-<style lang="scss">
+<style>
+body {
+  margin: 0;
+}
+
+@font-face {
+  font-family: Lato;
+  src: url("/fonts/Lato-Regular.ttf");
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  font-family: Lato, Arial, sans-serif;
+  font-size: 14px;
 }
 </style>
