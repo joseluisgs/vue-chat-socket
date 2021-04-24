@@ -11,25 +11,25 @@
         class="message"
       >
         <div v-if="displaySender(message, index)" class="sender">
-          {{ message.fromSelf ? "(yourself)" : user.username }}
+          {{ message.fromSelf ? "(Tú)" : user.username }}
         </div>
         {{ message.content }}
       </li>
     </ul>
 
     <form @submit.prevent="onSubmit" class="form">
-      <textarea v-model="input" placeholder="Your message..." class="input" />
-      <button :disabled="!isValid" class="send-button">Send</button>
+      <textarea v-model="input" placeholder="Tu mensaje..." class="input" />
+      <button :disabled="!isValid" class="send-button">Enviar</button>
     </form>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import StatusIcon from "./StatusIcon.vue";
+import Vue from 'vue';
+import StatusIcon from './StatusIcon.vue';
 
 export default Vue.extend({
-  name: "MessagePanel",
+  name: 'MessagePanel',
 
   // Mis componentes
   components: {
@@ -42,28 +42,30 @@ export default Vue.extend({
   },
 
   // Mis datos
-  data: {
-    input: "",
+  data() {
+    return {
+      input: '',
+    };
   },
 
   methods: {
     onSubmit(): void {
-      this.$emit("input", this.input);
-      this.input = "";
+      this.$emit('input', this.input);
+      this.input = '';
     },
 
-    displaySender(message: any, index: number) {
+    displaySender(message: any, index: number): boolean {
       return (
-        index === 0 ||
-        this.user.messages[index - 1].fromSelf !==
-          this.user.messages[index].fromSelf
+        index === 0
+        || this.user.messages[index - 1].fromSelf
+          !== this.user.messages[index].fromSelf
       );
     },
   },
 
   // Mis métodos computados
   computed: {
-    isValid() {
+    isValid(): boolean {
       return this.input.length > 0;
     },
   },

@@ -2,7 +2,7 @@
   <div class="user" @click="onClick" :class="{ selected: selected }">
     <div class="description">
       <div class="name">
-        {{ user.username }} {{ user.self ? " (yourself)" : "" }}
+        {{ user.username }} {{ user.self ? " (Tú)" : "" }}
       </div>
       <div class="status">
         <status-icon :connected="user.connected" />{{ status }}
@@ -13,11 +13,11 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import StatusIcon from "./StatusIcon.vue";
+import Vue from 'vue';
+import StatusIcon from './StatusIcon.vue';
 
 export default Vue.extend({
-  name: "User",
+  name: 'User',
   // Mis componentes
   components: { StatusIcon },
 
@@ -31,15 +31,15 @@ export default Vue.extend({
   methods: {
     // Emito ele vento select a mi padre
     onClick() {
-      this.$emit("select");
+      this.$emit('select');
     },
   },
 
   // Métodos computados
   computed: {
     // Muestra el estado
-    status(): "online" | "offline" {
-      return this.user.connected ? "online" : "offline";
+    status(): 'online' | 'offline' {
+      return this.user.connected ? 'online' : 'offline';
     },
   },
 });

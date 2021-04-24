@@ -9,13 +9,13 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import socket from "./services/socket";
-import SelectUsername from "./components/SelectUsername.vue";
-import Chat from "./components/Chat.vue";
+import Vue from 'vue';
+import socket from './services/socket';
+import SelectUsername from './components/SelectUsername.vue';
+import Chat from './components/Chat.vue';
 
 export default Vue.extend({
-  name: "App",
+  name: 'App',
 
   // Mis componentes
   components: {
@@ -24,8 +24,10 @@ export default Vue.extend({
   },
 
   // Mi modelo de datos
-  data: {
-    usernameAlreadySelected: false,
+  data() {
+    return {
+      usernameAlreadySelected: false,
+    };
   },
 
   // Mis métodos
@@ -42,8 +44,8 @@ export default Vue.extend({
   // Al crearme
   created() {
     // Funciones de socket
-    socket.on("connect_error", (err: Error) => {
-      if (err.message === "invalid username") {
+    socket.on('connect_error', (err: Error) => {
+      if (err.message === 'invalid username') {
         this.usernameAlreadySelected = false;
       }
     });
@@ -51,7 +53,7 @@ export default Vue.extend({
 
   // Al destruirme
   destroyed() {
-    socket.off("connect_error");
+    socket.off('connect_error');
   },
 });
 </script>

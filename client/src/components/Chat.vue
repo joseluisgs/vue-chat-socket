@@ -19,10 +19,10 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import socket from "../services/socket";
-import User from "./User.vue";
-import MessagePanel from "./MessagePanel.vue";
+import Vue from 'vue';
+import socket from '../services/socket';
+import User from './User.vue';
+import MessagePanel from './MessagePanel.vue';
 
 // Mis interfaces para tipar
 interface IMessage {
@@ -40,15 +40,17 @@ interface IUser {
 }
 
 export default Vue.extend({
-  name: "Chat",
+  name: 'Chat',
 
   // Mis componentes
   components: { User, MessagePanel },
 
   // Mi modelo de datos
-  data: {
-    selectedUser: {} as IUser,
-    users: [] as IUser[],
+  data() {
+    return {
+      selectedUser: {} as IUser,
+      users: [] as IUser[],
+    };
   },
   // Mis métodos
   methods: {
@@ -56,7 +58,7 @@ export default Vue.extend({
     onMessage(content: string): void {
       // Si es de este usuario, emito el mensaje privado al usuario elegido con el contenido
       if (this.selectedUser) {
-        socket.emit("private message", {
+        socket.emit('private message', {
           content,
           to: this.selectedUser.userID,
         });
@@ -79,7 +81,7 @@ export default Vue.extend({
   // Al crearme, iniciio toda la funcionalidad de Socket.io
   created() {
     // Al conectarme
-    socket.on("connect", () => {
+    socket.on('connect', () => {
       this.users.forEach((user: IUser) => {
         if (user.self) {
           user.connected = true;
@@ -88,7 +90,7 @@ export default Vue.extend({
     });
 
     // Al desconectarme
-    socket.on("disconnect", () => {
+    socket.on('disconnect', () => {
       this.users.forEach((user: IUser) => {
         if (user.self) {
           user.connected = false;
@@ -104,7 +106,7 @@ export default Vue.extend({
     };
 
     // Al recibir usuarios
-    socket.on("users", (users: IUser[]) => {
+    socket.on('users', (users: IUser[]) => {
       users.forEach((user) => {
         user.self = user.userID === socket.id;
         initReactiveProperties(user);
@@ -119,13 +121,13 @@ export default Vue.extend({
     });
 
     // Al estar conectado
-    socket.on("user connected", (user) => {
+    socket.on('user connected', (user) => {
       initReactiveProperties(user);
       this.users.push(user);
     });
 
     // Al desconectarme
-    socket.on("user disconnected", (id) => {
+    socket.on('user disconnected', (id) => {
       for (let i = 0; i < this.users.length; i += 1) {
         const user = this.users[i];
         if (user.userID === id) {
@@ -136,7 +138,7 @@ export default Vue.extend({
     });
 
     // Al mandar mensaje privado
-    socket.on("private message", ({ content, from }) => {
+    socket.on('private message', ({ content, from }) => {
       for (let i = 0; i < this.users.length; i += 1) {
         const user = this.users[i];
         if (user.userID === from) {
@@ -155,12 +157,12 @@ export default Vue.extend({
 
   // Al destruirme
   destroyed() {
-    socket.off("connect");
-    socket.off("disconnect");
-    socket.off("users");
-    socket.off("user connected");
-    socket.off("user disconnected");
-    socket.off("private message");
+    socket.off('connect');
+    socket.off('disconnect');
+    socket.off('users');
+    socket.off('user connected');
+    socket.off('user disconnected');
+    socket.off('private message');
   },
 });
 </script>

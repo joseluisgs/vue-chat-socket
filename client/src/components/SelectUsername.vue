@@ -8,20 +8,22 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue from 'vue';
 
 export default Vue.extend({
-  name: "SelectUsername",
+  name: 'SelectUsername',
 
   // Mi modelo de datos
-  data: {
-    username: '' as string,
+  data() {
+    return {
+      username: '' as string,
+    };
   },
 
   // Métodos computados
   computed: {
     // La longitud es mayor que dos
-    isValid() {
+    isValid(): boolean {
       return this.username.length > 2;
     },
   },
@@ -30,7 +32,7 @@ export default Vue.extend({
   methods: {
     // Emitimos el evento input hacia mi padre
     onSubmit() {
-      this.$emit("input", this.username);
+      this.$emit('input', this.username);
     },
   },
 });
