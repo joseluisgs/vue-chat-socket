@@ -47,6 +47,24 @@ export default Vue.extend({
   // Mi ciclo de vida
   // Al crearme
   created() {
+    // Recupero los datos almacenados
+    const sessionID = localStorage.getItem('sessionID');
+
+    if (sessionID) {
+      this.usernameAlreadySelected = true;
+      socket.auth = { sessionID };
+      socket.connect();
+    }
+
+    socket.on('session', ({ sessionID, userID }) => {
+      // añado el sessionID para que esté disponible en las siguientes conexiones
+      socket.auth = { sessionID };
+      // Lo almaceno en localStorage
+      localStorage.setItem('sessionID', sessionID);
+      // save the ID of the user
+      (socket as any).userID = userID;
+    });
+
     // Funciones de socket
     socket.on('connect_error', (err: Error) => {
       if (err.message === 'invalid username') {

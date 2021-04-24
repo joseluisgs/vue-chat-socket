@@ -56,7 +56,7 @@ export default Vue.extend({
 
     // Si selecciono un usuario
     /* eslint-disable no-param-reassign */
-    onSelectUser(user: IUser) {
+    onSelectUser(user: IUser): void {
       this.selectedUser = user;
       user.hasNewMessages = false;
     },
@@ -85,7 +85,6 @@ export default Vue.extend({
 
     // Iniciamos propiedades rectivas
     const initReactiveProperties = (user: IUser) => {
-      user.connected = true;
       user.messages = [];
       user.hasNewMessages = false;
     };
@@ -93,8 +92,16 @@ export default Vue.extend({
     // Al recibir usuarios
     socket.on('users', (users: IUser[]) => {
       users.forEach((user) => {
-        user.self = user.userID === socket.id;
+        for (let i = 0; i < this.users.length; i += 1) {
+          const existingUser = this.users[i];
+          if (existingUser.userID === user.userID) {
+            existingUser.connected = user.connected;
+            return;
+          }
+        }
+        user.self = user.userID === (socket as any).userID;
         initReactiveProperties(user);
+        this.users.push(user);
       });
       // ponemos al usuario actual primero y el resto los ordenamos
       this.users = users.sort((a, b) => {
@@ -107,6 +114,14 @@ export default Vue.extend({
 
     // Al estar conectado
     socket.on('user connected', (user) => {
+      // si existe en la lista actualizamos el estado
+      for (let i = 0; i < this.users.length; i += 1) {
+        const existingUser = this.users[i];
+        if (existingUser.userID === user.userID) {
+          existingUser.connected = true;
+          return;
+        }
+      }
       initReactiveProperties(user);
       this.users.push(user);
     });
@@ -123,13 +138,14 @@ export default Vue.extend({
     });
 
     // Al mandar mensaje privado
-    socket.on('private message', ({ content, from }) => {
+    socket.on('private message', ({ content, from, to }) => {
       for (let i = 0; i < this.users.length; i += 1) {
         const user = this.users[i];
-        if (user.userID === from) {
+        const fromSelf = (socket as any).userID === from;
+        if (user.userID === (fromSelf ? to : from)) {
           user.messages.push({
             content,
-            fromSelf: false,
+            fromSelf,
           });
           if (user !== this.selectedUser) {
             user.hasNewMessages = true;
