@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /**
 * FUNCIONALIDAD DEL SOCKET.IO
 */
@@ -31,16 +32,24 @@ export default (servicio: http.Server) => {
   io.on('connection', (socket: any) => {
     socket.emit('status', '👋 Hola desde el servidor');
     // Lista de usuarios
-    const users = [];
+    const users: { userID: string; username: any; }[] = [];
     // Recorremos los abiertos
-    for (const [id, mySocket] of io.of('/').sockets) {
-      const { username } = mySocket as any;
+    io.of('/').sockets.forEach((value, key) => {
+      const { username } = value as any;
       users.push({
-        userID: id,
+        userID: key,
         username,
       });
       console.log(chalk.cyan(`-> Clientes conectados ${username} conectado: ${new Date().toLocaleString()}`));
-    }
+    });
+    // for (const [id, mySocket] of io.of('/').sockets) {
+    //   const { username } = mySocket as any;
+    //   users.push({
+    //     userID: id,
+    //     username,
+    //   });
+    //   console.log(chalk.cyan(`-> Clientes conectados ${username} conectado: ${new Date().toLocaleString()}`));
+    // }
     // Emitimos la lista de usuarios
     socket.emit('users', users);
 
