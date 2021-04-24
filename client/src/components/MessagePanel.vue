@@ -8,7 +8,7 @@
       <li
         v-for="(message, index) in user.messages"
         :key="index"
-        class="message"
+        :class="message.fromSelf ? 'out-message m-3' : 'in-message m-3'"
       >
         <div v-if="displaySender(message, index)" class="sender">
           {{ message.fromSelf ? "(Tú)" : user.username }}
@@ -17,10 +17,38 @@
       </li>
     </ul>
 
-    <form @submit.prevent="onSubmit" class="form">
-      <textarea v-model="input" placeholder="Tu mensaje..." class="input" />
-      <button :disabled="!isValid" class="send-button">Enviar</button>
-    </form>
+    <div class="columns">
+      <div class="column">
+        <div class="fallback"></div>
+        <form @submit.prevent="onSubmit" class="message_form m-3">
+          <div class="columns"></div>
+          <div class="field is-horizontal is-expanded">
+            <div class="field-body">
+              <div class="field is-expanded">
+                <p class="control">
+                  <input v-model="input"
+                    class="input"
+                    type="text"
+                    placeholder="Nuevo mensaje"
+                  />
+                </p>
+              </div>
+              <div class="field is-narrow">
+                <p class="control">
+                  <button
+                  :disabled="!isValid"
+                    class="button is-link message_form__button"
+                    type="submit"
+                  >
+                    Enviar
+                  </button>
+                </p>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -81,11 +109,33 @@ export default Vue.extend({
 
 .messages {
   margin: 0;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding-bottom: 2rem;
+  overflow: auto;
 }
 
-.message {
-  list-style: none;
+.in-message {
+  font-size:0.90rem;
+  margin: 1rem;
+  color: black;
+  background-color: rgb(204, 239, 255);
+  width: 50%;
+  padding: 1rem;
+  box-shadow: -0px -2px 3px rgb(190, 190, 190);
+  border-radius: 8px
+}
+.out-message {
+  font-size:0.90rem;
+  margin: 1rem;
+  color: black;
+  background-color: rgb(128, 245, 206);
+  width: 50%;
+  padding: 1rem;
+  box-shadow: -0px -2px 3px rgb(190, 190, 190);
+  border-radius: 8px;
+  align-self: flex-end;
 }
 
 .sender {
@@ -93,20 +143,11 @@ export default Vue.extend({
   margin-top: 5px;
 }
 
-.form {
-  padding: 10px;
-}
-
-.input {
-  width: 80%;
-  resize: none;
-  padding: 10px;
-  line-height: 1.5;
-  border-radius: 5px;
-  border: 1px solid #000;
-}
-
-.send-button {
-  vertical-align: top;
+.message_form {
+  background-color: rgb(224, 224, 224);
+  padding: 1rem;
+  height: 8vh;
+  box-shadow: -0px -2px 3px rgb(190, 190, 190);
+  border-radius: 8px;
 }
 </style>

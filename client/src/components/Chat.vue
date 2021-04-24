@@ -175,7 +175,7 @@ export default Vue.extend({
   bottom: 0;
   width: 260px;
   overflow-x: hidden;
-  background-color: #3f0e40;
+  background-color: #4422a0;
   color: white;
 }
 

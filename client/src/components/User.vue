@@ -38,8 +38,8 @@ export default Vue.extend({
   // Métodos computados
   computed: {
     // Muestra el estado
-    status(): 'online' | 'offline' {
-      return this.user.connected ? 'online' : 'offline';
+    status(): 'conectado' | 'desconectado' {
+      return this.user.connected ? 'conectado' : 'desconectado';
     },
   },
 });
@@ -59,7 +59,7 @@ export default Vue.extend({
 }
 
 .status {
-  color: #92959e;
+  color: #cecfd1;
 }
 
 .new-messages {
