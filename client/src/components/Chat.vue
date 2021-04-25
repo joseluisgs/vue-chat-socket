@@ -50,6 +50,8 @@ export default Vue.extend({
         this.selectedUser.messages.push({
           content,
           fromSelf: true,
+          to: this.selectedUser.userID,
+          from: (socket as any).userID,
         });
       }
     },
@@ -85,17 +87,23 @@ export default Vue.extend({
 
     // Iniciamos propiedades rectivas
     const initReactiveProperties = (user: IUser) => {
-      user.messages = [];
       user.hasNewMessages = false;
     };
 
     // Al recibir usuarios
     socket.on('users', (users: IUser[]) => {
       users.forEach((user) => {
+        // Recueramos los mensajes que tengamos
+        user.messages.forEach((message) => {
+          message.fromSelf = message.from === (socket as any).userID;
+        });
+
+        // si existe, lo recuperamos todo hasta sus mensajes
         for (let i = 0; i < this.users.length; i += 1) {
           const existingUser = this.users[i];
           if (existingUser.userID === user.userID) {
             existingUser.connected = user.connected;
+            existingUser.messages = user.messages;
             return;
           }
         }
@@ -146,6 +154,8 @@ export default Vue.extend({
           user.messages.push({
             content,
             fromSelf,
+            from,
+            to,
           });
           if (user !== this.selectedUser) {
             user.hasNewMessages = true;
