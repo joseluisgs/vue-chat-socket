@@ -13,13 +13,16 @@ Ejemplo de mensajería privada cliente servidor. Como cliente usaremos Vue.js, e
     - [Store y Persistencia](#store-y-persistencia)
       - [Sesiones](#sesiones)
       - [Mensajes](#mensajes)
-  - [Servidor](#servidor)
+  - [Despliegue](#despliegue)
+    - [Servidor](#servidor)
+    - [Cliente](#cliente)
+  - [Servidor](#servidor-1)
     - [Project setup](#project-setup)
     - [Compiles and hot-reloads for development](#compiles-and-hot-reloads-for-development)
     - [Compiles and minifies for production](#compiles-and-minifies-for-production)
     - [Compiles and start for production](#compiles-and-start-for-production)
     - [Lints and fixes files](#lints-and-fixes-files)
-  - [Cliente](#cliente)
+  - [Cliente](#cliente-1)
     - [Project setup](#project-setup-1)
     - [Compiles and hot-reloads for development](#compiles-and-hot-reloads-for-development-1)
     - [Compiles and minifies for production](#compiles-and-minifies-for-production-1)
@@ -42,8 +45,20 @@ La sesiones se guardan en el servidor en base a un identificador único. De esta
 #### Mensajes
 De la misma manera que guardamos las sesiones en el servidor. También vamos a guardar los mensajes. De esta manera, si un usuario se desconecta, podremos seguir mandándole mensajes, que le llegarán. De la misma manera si recarga su sesión recuperará todos los mensajes que tiene con sus contactos.
 
+## Despliegue
+El proyecto se puede desplegar usando Docker y consultando dichos docker en [Docker Hub](https://hub.docker.com/repositories). También puedes usar lso respectivos Dockerfiles.
+
+### Servidor
+```
+docker run -it -p 3000:3000 --rm --name vue-chat-socket-server joseluisgs/vue-chat-socket-server
+```
+### Cliente
+```
+docker run -it -p 8080:8080 --rm --name vue-chat-socket-client joseluisgs/vue-chat-socket-client
+```
+
 ## Servidor
-En la carpeta servidor, tienes el servidor creado. Para ello se ha usando Node.js con TypeScript.
+En la carpeta servidor, tienes el servidor creado. Para ello se ha usando Node.js con TypeScript. Dicho servidor realiza la persistencia de sesiones y mensajes de los usuarios.
 
 ### Project setup
 ```
