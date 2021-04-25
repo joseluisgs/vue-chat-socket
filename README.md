@@ -14,6 +14,7 @@ Ejemplo de mensajería privada cliente servidor. Como cliente usaremos Vue.js, e
       - [Sesiones](#sesiones)
       - [Mensajes](#mensajes)
   - [Despliegue](#despliegue)
+    - [Todo (recomendado)](#todo-recomendado)
     - [Servidor](#servidor)
     - [Cliente](#cliente)
   - [Servidor](#servidor-1)
@@ -46,7 +47,12 @@ La sesiones se guardan en el servidor en base a un identificador único. De esta
 De la misma manera que guardamos las sesiones en el servidor. También vamos a guardar los mensajes. De esta manera, si un usuario se desconecta, podremos seguir mandándole mensajes, que le llegarán. De la misma manera si recarga su sesión recuperará todos los mensajes que tiene con sus contactos.
 
 ## Despliegue
-El proyecto se puede desplegar usando Docker y consultando dichos docker en [Docker Hub](https://hub.docker.com/repositories). También puedes usar lso respectivos Dockerfiles.
+El proyecto se puede desplegar usando Docker y consultando dichos docker en [Docker Hub](https://hub.docker.com/repositories). También puedes usar lso respectivos Dockerfiles o Docker Compose (recomendado).
+
+### Todo (recomendado)
+```
+docker-compose up -d  
+```
 
 ### Servidor
 ```

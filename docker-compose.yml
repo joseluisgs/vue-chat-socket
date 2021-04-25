@@ -1,0 +1,39 @@
+# Indicamos la versión
+version: '3.7'
+
+# Mis servicios
+# Iniciamos los servicios
+services:
+
+  # Server
+  vue-chat-socket-server:
+    container_name: "vue-chat-socket-server"
+    # image: "joseluisgs/vue-chat-socket-server"
+    build:
+      context: server/.
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    # networks:
+    #   - socket-chat-network
+    # restart: always
+
+  # Client
+  vue-chat-socket-client:
+    container_name: "vue-chat-socket-client"
+    # image: "joseluisgs/vue-chat-socket-client"
+    build:
+      context: client/.
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - "vue-chat-socket-server"
+    # networks:
+    #   - socket-chat-network
+    # restart: always
+  
+# # Si queremos que tengan una red propia a otros contenedores
+# networks:
+#   socket-chat-network:
+#     driver: bridge
