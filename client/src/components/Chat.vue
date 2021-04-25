@@ -51,6 +51,7 @@ export default Vue.extend({
           content,
           fromSelf: true,
           to: this.selectedUser.userID,
+          // eslint-disable-next-line
           from: (socket as any).userID,
         });
       }
@@ -95,6 +96,7 @@ export default Vue.extend({
       users.forEach((user) => {
         // Recueramos los mensajes que tengamos
         user.messages.forEach((message) => {
+          // eslint-disable-next-line
           message.fromSelf = message.from === (socket as any).userID;
         });
 
@@ -107,6 +109,7 @@ export default Vue.extend({
             return;
           }
         }
+        // eslint-disable-next-line
         user.self = user.userID === (socket as any).userID;
         initReactiveProperties(user);
         this.users.push(user);
@@ -149,6 +152,7 @@ export default Vue.extend({
     socket.on('private message', ({ content, from, to }) => {
       for (let i = 0; i < this.users.length; i += 1) {
         const user = this.users[i];
+        // eslint-disable-next-line
         const fromSelf = (socket as any).userID === from;
         if (user.userID === (fromSelf ? to : from)) {
           user.messages.push({
