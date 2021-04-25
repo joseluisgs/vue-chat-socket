@@ -10,8 +10,9 @@ Ejemplo de mensajería privada cliente servidor. Como cliente usaremos Vue.js, e
 
 - [Vue Chat Socket.io](#vue-chat-socketio)
   - [Sobre el proyecto](#sobre-el-proyecto)
-    - [Store](#store)
+    - [Store y Persistencia](#store-y-persistencia)
       - [Sesiones](#sesiones)
+      - [Mensajes](#mensajes)
   - [Servidor](#servidor)
     - [Project setup](#project-setup)
     - [Compiles and hot-reloads for development](#compiles-and-hot-reloads-for-development)
@@ -30,13 +31,16 @@ Ejemplo de mensajería privada cliente servidor. Como cliente usaremos Vue.js, e
 ![imagen](image.jpeg)
 ## Sobre el proyecto
 
-El proyecto consiste en crar sistema de mensajería privada en tiempo real creando un cliente en Vue.js y un servidor en Node.js. Ambos trabajarán con la librería Socket.io. 
+El proyecto consiste en crar sistema de mensajería privada en tiempo real creando un cliente en Vue.js y un servidor en Node.js. Ambos trabajarán con la librería Socket.io.
 
-### Store
-Se ha implementado un Store tanto en cliente como en servidor.
+### Store y Persistencia
+Se ha implementado un Store tanto en cliente como en servidor para el manejo de la persistencia de la información.
 
 #### Sesiones
-La sesiones se guardan en el servidor en base a un identificador único. De esta manera si un usuario recarga la página se volvería a conectar seimpre que su sesión esté activa. En el cliente el identificador de la sesión se guarda en el almacenamiento local del navegador.
+La sesiones se guardan en el servidor en base a un identificador único. De esta manera si un usuario recarga la página se volvería a conectar simpre que su sesión esté activa. En el cliente el identificador de la sesión se guarda en el almacenamiento local del navegador.
+
+#### Mensajes
+De la misma manera que guardamos las sesiones en el servidor. También vamos a guardar los mensajes. De esta manera, si un usuario se desconecta, podremos seguir mandándole mensajes, que le llegarán. De la misma manera si recarga su sesión recuperará todos los mensajes que tiene con sus contactos.
 
 ## Servidor
 En la carpeta servidor, tienes el servidor creado. Para ello se ha usando Node.js con TypeScript.
@@ -90,6 +94,7 @@ npm run lint
 ```
 
 ![imagen](image.png)
+![imagen](image2.png)
 
 ## Autor
 
