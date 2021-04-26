@@ -13,10 +13,14 @@ Ejemplo de mensajería privada cliente servidor. Como cliente usaremos Vue.js, e
     - [Store y Persistencia](#store-y-persistencia)
       - [Sesiones](#sesiones)
       - [Mensajes](#mensajes)
+    - [Arquitectura avanzada](#arquitectura-avanzada)
+      - [Balaceador de carga](#balaceador-de-carga)
+      - [Sesiones y mensajes](#sesiones-y-mensajes)
   - [Despliegue](#despliegue)
     - [Todo (recomendado)](#todo-recomendado)
     - [Servidor](#servidor)
     - [Cliente](#cliente)
+    - [Redis](#redis)
   - [Servidor](#servidor-1)
     - [Project setup](#project-setup)
     - [Compiles and hot-reloads for development](#compiles-and-hot-reloads-for-development)
@@ -32,19 +36,38 @@ Ejemplo de mensajería privada cliente servidor. Como cliente usaremos Vue.js, e
   - [Licencia](#licencia)
   - [Agradecimientos](#agradecimientos)
 
-![imagen](image.jpeg)
+![imagen](./images/image.jpeg)
 ## Sobre el proyecto
 
 El proyecto consiste en crar sistema de mensajería privada en tiempo real creando un cliente en Vue.js y un servidor en Node.js. Ambos trabajarán con la librería Socket.io.
 
+Tiene dos modos de funcionamiento, uno simple con sesiones y persistencia en memoria y uno avanzado, que hace uso de Redis para las sesiones y un cluster para el servidor.
+
 ### Store y Persistencia
 Se ha implementado un Store tanto en cliente como en servidor para el manejo de la persistencia de la información.
+
+En el modo avanzado se ha usado Redis para las sesiones y mensajes.
 
 #### Sesiones
 La sesiones se guardan en el servidor en base a un identificador único. De esta manera si un usuario recarga la página se volvería a conectar simpre que su sesión esté activa. En el cliente el identificador de la sesión se guarda en el almacenamiento local del navegador.
 
+En el modo avanzado se ha usado Redis.
+
 #### Mensajes
 De la misma manera que guardamos las sesiones en el servidor. También vamos a guardar los mensajes. De esta manera, si un usuario se desconecta, podremos seguir mandándole mensajes, que le llegarán. De la misma manera si recarga su sesión recuperará todos los mensajes que tiene con sus contactos.
+
+En el modo avanzado se ha usado Redis.
+
+### Arquitectura avanzada
+
+#### Balaceador de carga
+Lo primero que crearemos es un balanceador de carga para [Socket.io](https://socket.io/docs/v4/using-multiple-nodes/#Sticky-load-balancing) creando un maestro y distintos workers al respecto.
+
+![img](./images/master-worker.png)
+
+#### Sesiones y mensajes
+Se ha usado Redis para las sesiones usado Redis (HMGET) y para los Mensajes (RPUSH/LRANGE)
+![img](images/redis-session.png)
 
 ## Despliegue
 El proyecto se puede desplegar usando Docker y consultando dichos docker en [Docker Hub](https://hub.docker.com/repositories). También puedes usar lso respectivos Dockerfiles o Docker Compose (recomendado).
@@ -62,9 +85,15 @@ docker run -it -p 3000:3000 --rm --name vue-chat-socket-server joseluisgs/vue-ch
 ```
 docker run -it -p 8080:8080 --rm --name vue-chat-socket-client joseluisgs/vue-chat-socket-client
 ```
+### Redis
+```
+docker-compose -f redis-compose.yml up -d
+```
 
 ## Servidor
 En la carpeta servidor, tienes el servidor creado. Para ello se ha usando Node.js con TypeScript. Dicho servidor realiza la persistencia de sesiones y mensajes de los usuarios.
+
+En el modo avanzado se ha usado un cluster para poder atender a muuchas peticiones usando un balanceador de carga.
 
 ### Project setup
 ```
@@ -114,8 +143,8 @@ npm run build
 npm run lint
 ```
 
-![imagen](image.png)
-![imagen](image2.png)
+![imagen](./images/image.png)
+![imagen](./images/image2.png)
 
 ## Autor
 
