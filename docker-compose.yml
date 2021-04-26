@@ -7,7 +7,7 @@ services:
 
   # Server
   vue-chat-socket-server:
-    container_name: "vue-chat-socket-server"
+    container_name: "chat-server"
     # image: "joseluisgs/vue-chat-socket-server"
     build:
       context: server/.
@@ -20,7 +20,7 @@ services:
 
   # Client
   vue-chat-socket-client:
-    container_name: "vue-chat-socket-client"
+    container_name: "chat-client"
     # image: "joseluisgs/vue-chat-socket-client"
     build:
       context: client/.
@@ -32,6 +32,7 @@ services:
     # networks:
     #   - socket-chat-network
     # restart: always
+  
   
 # # Si queremos que tengan una red propia a otros contenedores
 # networks:
