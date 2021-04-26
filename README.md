@@ -43,6 +43,9 @@ El proyecto consiste en crar sistema de mensajería privada en tiempo real crean
 
 Tiene dos modos de funcionamiento, uno simple con sesiones y persistencia en memoria y uno avanzado, que hace uso de Redis para las sesiones y un cluster para el servidor.
 
+![imagen](./images/image.png)
+![imagen](./images/image2.png)
+
 ### Store y Persistencia
 Se ha implementado un Store tanto en cliente como en servidor para el manejo de la persistencia de la información.
 
@@ -142,9 +145,6 @@ npm run build
 ```
 npm run lint
 ```
-
-![imagen](./images/image.png)
-![imagen](./images/image2.png)
 
 ## Autor
 
