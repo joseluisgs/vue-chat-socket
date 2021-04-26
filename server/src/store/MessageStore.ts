@@ -11,5 +11,5 @@ export default interface MessageStore {
    * Obtiene todos los mensajes del usuario
    * @param userID ID de usuario
    */
-  findMessagesForUser(userID: string): IMessage[];
+  findMessagesForUser(userID: string): any;
 }
