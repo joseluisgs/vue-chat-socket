@@ -43,6 +43,8 @@ El proyecto consiste en crar sistema de mensajería privada en tiempo real crean
 
 Tiene dos modos de funcionamiento, uno simple con sesiones y persistencia en memoria y uno avanzado, que hace uso de Redis para las sesiones y un cluster para el servidor.
 
+**🚩 No olvides eliminar la sesión del explorador para que se ejecute correctamente**
+
 ![imagen](./images/image.png)
 ![imagen](./images/image2.png)
 
