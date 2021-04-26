@@ -7,20 +7,22 @@ services:
 
   # Server
   vue-chat-socket-server:
-    container_name: "vue-chat-socket-server"
+    container_name: "chat-server"
     # image: "joseluisgs/vue-chat-socket-server"
     build:
       context: server/.
       dockerfile: Dockerfile
     ports:
       - 3000:3000
+    depends_on:
+      - "vue-chat-socket-redis"
     # networks:
     #   - socket-chat-network
     # restart: always
 
   # Client
   vue-chat-socket-client:
-    container_name: "vue-chat-socket-client"
+    container_name: "chat-client"
     # image: "joseluisgs/vue-chat-socket-client"
     build:
       context: client/.
@@ -29,6 +31,16 @@ services:
       - 8080:8080
     depends_on:
       - "vue-chat-socket-server"
+    # networks:
+    #   - socket-chat-network
+    # restart: always
+  
+  # Redis
+  vue-chat-socket-redis:
+    container_name: "chat-redis"
+    image: redis:5
+    ports:
+      - "6379:6379"
     # networks:
     #   - socket-chat-network
     # restart: always
